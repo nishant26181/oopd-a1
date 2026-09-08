@@ -14,6 +14,14 @@ int main() {
     io.outputstring("Enter the number of personal data you need to store :");
     int person_no = io.inputint();
 
+    // Bounds check to prevent stack array overflow
+    if (person_no > max) {
+        io.outputstring("Exceeds max capacity! Capping entries to 100.\n");
+        person_no = max;
+    } else if (person_no < 1) {
+        person_no = 1;
+    }
+
     // Stack-allocated array of structures using the predefined maximum capacity
     Person record[max];
 
@@ -23,6 +31,13 @@ int main() {
         io.inputstring(record[i].name, 50);
         io.outputstring("Enter age :");
         record[i].age = io.inputint();
+
+        // Compulsory Input Validation Loop: Force realistic age
+        while (record[i].age <= 0 || record[i].age >= 100) {
+            io.outputstring("Please give your real age \n");
+            io.outputstring("Enter age :");
+            record[i].age = io.inputint();
+        }
     }
 
     // Ask user if additional details need to be added (Question 5 extension)
@@ -34,15 +49,26 @@ int main() {
         io.outputstring("How many person's data you want to add:");
         int additional_person = io.inputint();
 
-        // Calculate total number of records after addition
+        // Calculate total number of records after addition and enforce max bound
         int new_person_no = person_no + additional_person;
+        if (new_person_no > max) {
+            io.outputstring("Exceeds max capacity! Capping total entries to 100.\n");
+            new_person_no = max;
+        }
 
-        // Collect details for the newly added records starting from the existing offset
+        // Collect details for newly added records
         for (int i = person_no; i < new_person_no; i++) {
             io.outputstring("Enter name :");
             io.inputstring(record[i].name, 50);
             io.outputstring("Enter age :");
             record[i].age = io.inputint();
+
+            // Compulsory Input Validation Loop: Force realistic age
+            while (record[i].age <= 0 || record[i].age >= 100) {
+                io.outputstring("Please give your real age \n");
+                io.outputstring("Enter age :");
+                record[i].age = io.inputint();
+            }
         }
 
         // Display all accumulated records (initial + additional) for verification
@@ -65,7 +91,7 @@ int main() {
             io.outputstring("The data is not stored correctly\n");
         }
 
-        // Output final summary for all entries (including additional ones)
+        // Output final summary for all entries
         io.outputstring("The following data is saved\n");
         for (int j = 0; j < new_person_no; j++) {
             io.outputstring("Person Number: ");
