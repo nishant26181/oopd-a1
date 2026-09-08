@@ -1,47 +1,64 @@
 #include "basicIO.h"
-struct Person{
-    char name [50];
+
+// Custom structure to represent an individual person without standard libraries
+struct Person {
+    char name[50]; // Bounded character array to prevent buffer overflow
     int age;
 };
 
-int main(){
-    char ver[10];
+int main() {
+    char ver[10]; // Buffer to hold user confirmation input ('y'/'n')
+    
+    // Fixed maximum stack allocation limit to prevent memory buffer overflow
+    const int max = 100; 
+
     io.outputstring("Enter the number of personal data you need to store :");
     int person_no = io.inputint();
-    Person record[person_no];
-    for (int i =0; i < person_no; i++){    
+
+    // Stack-allocated array of structures for record storage
+    Person record[max]; 
+
+    // Collect name and age details for each entry
+    for (int i = 0; i < person_no; i++) {
         io.outputstring("Enter name :");
-        io.inputstring(record[i].name,50);
+        io.inputstring(record[i].name, 50);
+
         io.outputstring("Enter age :");
         record[i].age = io.inputint();
-        if (record[i].age > 0 && record[i].age < 100){
-            io.outputstring("\nPlease verify your age and name :\n");
-            io.outputstring("Entered name :");
-            io.outputstring(record[i].name);
-            io.outputstring("\nEntered age :");
-            io.outputint(record[i].age); 
-            io.outputstring("\nIf the data is correct enter y otherwise enter n :");
-            io.inputstring(ver,10);
-            if(ver[0] == 'y' || ver[0] == 'Y'){
-                io.outputstring("The data is Stored correctly\n");
-            }
-            else if(ver[0] == 'n' || ver[0] == 'N'){
-                io.outputstring("The data is not stored correctly\n");
-            }
-        }
-        else {
-            io.outputstring("Please give your real age \n");
-        }
     }
-    for(int j=0; j<person_no; j++){
-        io.outputstring("The following data is saved\n");
+
+    // Output all collected records for initial user review
+    io.outputstring("\nPlease verify your age and name :\n");
+    for (int i = 0; i < person_no; i++) {  
+        io.outputstring("\nEntered name :");
+        io.outputstring(record[i].name);
+        io.outputstring(" Entered age :");
+        io.outputint(record[i].age); 
+    }
+
+    // Prompt user for explicit data verification
+    io.outputstring("\nIf the data is correct enter y otherwise enter n :");
+    io.inputstring(ver, 10);
+
+    // Validate confirmation choice
+    if (ver[0] == 'y' || ver[0] == 'Y') {
+        io.outputstring("The data is Stored correctly\n");
+    }
+    else if (ver[0] == 'n' || ver[0] == 'N') {
+        io.outputstring("The data is not stored correctly\n");
+    }
+
+    // Output final summary list of all stored records
+    io.outputstring("The following data is saved\n");
+    for (int j = 0; j < person_no; j++) {
         io.outputstring("Person Number: ");
-        io.outputint(j+1);
-        io.outputstring("\nPerson's Name: ");
+        io.outputint(j + 1);
+        io.outputstring(" Name: ");
         io.outputstring(record[j].name);
-        io.outputstring("\nPerson's Age: ");
+        io.outputstring(" Age: ");
         io.outputint(record[j].age);
         io.outputstring("\n");
     }
-    return 0;
+
+    return 0; // Clean exit code for freestanding execution
 }
