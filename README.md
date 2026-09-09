@@ -61,9 +61,24 @@ Ensure `g++`, `nasm`, and `bash` are installed on your x86_64 Linux environment.
 * **Freestanding C++ Compilation:** `g++ -ffreestanding -nostdlib -fno-exceptions -fno-rtti -c <file>.cpp -o <file>.o`
 * **Custom Entry Point Linker:** `g++ -nostdlib -e _start syscall.o basicIO.o <file>.o -o <file>.out`
 
+### LLM Prompts Used During Development
+"Write a C++ program that does nothing except returns 0 utilizing g++ options that exclude standard library files (-ffreestanding, -nostdlib)."
+
+"How to write a NASM x86_64 assembly source file (syscall.S) to perform direct sys_read and sys_write syscalls without standard C library support?"
+
+"Write input validation in freestanding C++ to ensure age input is a valid number between 1 and 99 without using <iostream> or std::cin."
+
+"According to the assignment specifications, do I need to check input validity (whether age is a number) as compulsory logic for Questions 3, 4, and 5?"
+
+"How to handle dynamic record bounds on the stack safely using C++ structures without new or malloc while preventing stack overflows?"
+
+"How to apply the required RollNo_Filename.extension naming convention and prepend name/roll number header comments across .cpp and .sh files using shell commands?"
+
+"How to fix git push rejections ([rejected] main -> main (fetch first)) and handle repository sync safely when updating files across dual branches (main and Q4_and_Q5)?"
+
 ### Automated Build Commands
 
-#### Running Questions 2 and 3 (`main` branch)
+#### Running Questions
 ```bash
 git checkout main
 
@@ -84,17 +99,3 @@ chmod +x MT26181_build_q4.sh && ./MT26181_build_q4.sh
 chmod +x MT26181_build_q5.sh && ./MT26181_build_q5.sh
 
 
-LLM Prompts Used During Development
-"Write a C++ program that does nothing except returns 0 utilizing g++ options that exclude standard library files (-ffreestanding, -nostdlib)."
-
-"How to write a NASM x86_64 assembly source file (syscall.S) to perform direct sys_read and sys_write syscalls without standard C library support?"
-
-"Write input validation in freestanding C++ to ensure age input is a valid number between 1 and 99 without using <iostream> or std::cin."
-
-"According to the assignment specifications, do I need to check input validity (whether age is a number) as compulsory logic for Questions 3, 4, and 5?"
-
-"How to handle dynamic record bounds on the stack safely using C++ structures without new or malloc while preventing stack overflows?"
-
-"How to apply the required RollNo_Filename.extension naming convention and prepend name/roll number header comments across .cpp and .sh files using shell commands?"
-
-"How to fix git push rejections ([rejected] main -> main (fetch first)) and handle repository sync safely when updating files across dual branches (main and Q4_and_Q5)?"
